@@ -9,3 +9,4 @@ COPY . .
 
 #CMD ["flask", "run", "-h", "0.0.0.0"]
 CMD [ "python", "app.py"]
+EXPOSE 5000

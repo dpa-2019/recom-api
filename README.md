@@ -20,6 +20,10 @@ $ docker ps -a
 $ docker rm $(docker ps -qa --no-trunc --filter "status=exited")
 
 
+To Run with Only Docker:
+$ docker build -t dpa
+$ docker run -p 80:5000 dpa
+
 ##Usage
 
 '''json
