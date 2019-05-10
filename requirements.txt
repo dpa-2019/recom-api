@@ -1,0 +1,5 @@
+Flask==0.12.2
+Markdown==2.6.11
+pymongo
+dnspython
+tzlocal

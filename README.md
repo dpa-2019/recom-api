@@ -2,6 +2,22 @@
 
 
 ##install docker, install compose
+https://docs.docker.com/install/linux/docker-ce/debian/
+https://docs.docker.com/compose/install/
+
+Linux Docker Install:
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https:d//download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic test"
+sudo apt update
+sudo apt install docker-ce
+
+Remove Images:
+$ docker images
+$ docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+
+$ docker ps -a
+$ docker rm $(docker ps -qa --no-trunc --filter "status=exited")
 
 
 ##Usage
