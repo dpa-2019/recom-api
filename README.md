@@ -41,6 +41,9 @@ $ docker run -p 80:5000 dpa
 Trigger: User intake triggers recommendation event. Uses: User_Id and intake preference. User and
 preferences are unique row , businesses are nested arrays.
 
+#URL
+http://0.0.0.0:5000/recom?uid=5caad264ebe5d49edbaa526c
+
 #API 1
 'GET' method will use API Keys to pull event data.
 #API 2
@@ -104,6 +107,9 @@ to find walkable places - will also use profile preference/history.
 #API 3
 'GET /after'
 
+#URL
+http://0.0.0.0:5000/afters?lat=34.054957345816&lon=-118.249773225864
+
 **Response**
 
 #-'200 OK' on success need to fix - can't use Marshmallow...used Jsonify.
@@ -135,9 +141,13 @@ to find walkable places - will also use profile preference/history.
 ## booked
 
 Trigger: Uses User Id to get user history , should have "booked flag set to yes as a filter"
+#URL
+http://0.0.0.0:5000/hist?uid=5caad264ebe5d49edbaa526c
 
 #API 4
 'GET /history'
+
+
 
 **Response**
 
