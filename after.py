@@ -31,7 +31,7 @@ recom_dt = datetime.now(local_timezone).strftime("%d/%m/%Y %H:%M:%S")  # the cur
 
 # Connect to Mongo and set db & documents
 
-client = MongoClient('mongodb+srv://dpa_admin:Buong123%21@cluster0-brbjx.mongodb.net/test?retryWrites=true')
+client = MongoClient('mongodb+srv://dpa_admin:Buong12zSS3%21@cluster0-brbjx.mongodb.net/test?retryWrites=true')
 db = client.mydb
 c_user = db.user
 c_profile = db.profile

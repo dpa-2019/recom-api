@@ -1,5 +1,8 @@
 Flask==0.12.2
-Markdown==2.6.11
+Flask_restful
+toastedmarshmallow
 pymongo
 dnspython
 tzlocal
+requests
+pprint

@@ -1,4 +1,4 @@
-FROM python:3.4-alpine
+FROM python:3.7-alpine
 
 WORKDIR . /usr/src/app
 
@@ -10,3 +10,5 @@ COPY . .
 #CMD ["flask", "run", "-h", "0.0.0.0"]
 CMD [ "python", "app.py"]
 EXPOSE 5000
+
+#http://0.0.0.0:5000/
