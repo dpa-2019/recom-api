@@ -1,6 +1,7 @@
-Flask==0.12.2
+Flask
 Flask_restful
 toastedmarshmallow
+bson
 pymongo
 dnspython
 tzlocal

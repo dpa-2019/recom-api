@@ -12,10 +12,10 @@ import toastedmarshmallow
 from marshmallow import Schema, fields
 
 # get current timezone for dates.
-local_timezone = tzlocal.get_localzone()
+#local_timezone = tzlocal.get_localzone()
 
 #recom_dt = datetime.now(local_timezone).strftime("%d/%m/%Y %H:%M:%S")  # the current time
-recom_dt = datetime.now(local_timezone)
+recom_dt = datetime.now
 
 #var_u = '5caad264ebe5d49edbaa526c'
 # create an instance of Flask
