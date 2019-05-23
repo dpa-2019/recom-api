@@ -7,3 +7,4 @@ dnspython
 tzlocal
 requests
 pprint
+pytz==2018.9

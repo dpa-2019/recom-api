@@ -6,16 +6,18 @@ from pymongo import MongoClient
 from bson import ObjectId
 import requests
 from datetime import datetime
+import pytz
+from pytz import timezone
 import tzlocal  # $ pip install tzlocal
 
 import toastedmarshmallow
 from marshmallow import Schema, fields
 
 # get current timezone for dates.
-#local_timezone = tzlocal.get_localzone()
+local_timezone = tzlocal.get_localzone()
 
 #recom_dt = datetime.now(local_timezone).strftime("%d/%m/%Y %H:%M:%S")  # the current time
-recom_dt = datetime.now
+recom_dt = datetime.now(local_timezone)
 
 #var_u = '5caad264ebe5d49edbaa526c'
 # create an instance of Flask
@@ -194,7 +196,7 @@ class recom(Resource):
 
         c_recom.insert_one(merged)
 
-        return 'Inserted', 200 #return success
+        return 'Inserted'
 
 class afters(Resource):
     def get(self):

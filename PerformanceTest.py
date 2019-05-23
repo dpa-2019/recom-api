@@ -77,10 +77,62 @@ class recommend(Schema):
     diet = fields.Str()
     homezip = fields.Str()
     total = fields.Int()
-    business = fields.Nested(Business, many=True)
+    business = fields.Nested(Business,many=True)
 
 #####Data Functions
 
+def rec():
+    uid='5caad264ebe5d49edbaa526c'
+    #recom=get_db().user.find_one({'_id': ObjectId(var_u)}, {'birthyear': 1, 'firstname': 1})
+        # set profile variables for GraphQL
+    recom = [c_user.find_one({'_id': ObjectId(uid)}, {'birthyear': 1, 'firstname': 1}),
+            c_profile.find_one({'userid': (uid)}, {'_id': 0, 'price': 1, 'alcohol': 1, 'cuisine': 1
+            , 'dietrestrictions': 1, 'gender': 1, 'homezipcode': 1, 'workzipcode': 1})]
+
+    price_in = '"' + (str(len(recom[1]['price']))) + '"'
+    location_in = '"' + recom[1]['homezipcode'] + '"'
+    cat_in = '"' + recom[1]['cuisine'].lower() + ',' + recom[1]['dietrestrictions'].lower() + '"'
+
+    query = """{
+            search (term: "restaurants",
+            categories:""" + cat_in + """,
+            location:""" + location_in + """,
+            price: """ + price_in + """,
+            limit: 30,
+            radius:20000
+            sort_by: "rating") {
+            total
+            business
+        {
+            id
+            name
+            alias
+            coordinates{latitude
+                        longitude}
+            rating
+            phone
+            photos
+            url
+        }
+        }
+        } """
+
+    result = run_query(query)  # execute query
+
+    merged = [recom_dt, recom[0], recom[1], result]
+    merged[1]['_id']=uid     #this needs to be converted back to value
+    merged = {'recom_dt': merged[0],
+                  "user_id": merged[1]['_id'],
+                  "firstname": merged[1]['firstname'],
+                  "birthyear": merged[1]['birthyear'],
+                  "price": merged[2]['price'],
+                  "cuisine": merged[2]['cuisine'],
+                  "diet": merged[2]['dietrestrictions'],
+                  "homezip": merged[2]['homezipcode'],
+                  "total": merged[3]['data']['search']['total'],
+                  "business": merged[3]['data']['search']['business']
+                  }
+    return merged
 
 def aftersrec(lat,lon):
     ####secondary recommendation - get long / lat of picked index array ("1" below)
@@ -112,17 +164,29 @@ def aftersrec(lat,lon):
     } """
 
     after_res = run_query(query_2)  # secondary recommendation
-    merged=[after_res]
-    amerged={'business': merged[0]['data']['search']['business']
-            }
+    merged = [after_res]
+    amerged = {'business': merged[0]['data']['search']['business']
+               }
     return amerged
 
-def afters():
 
-        schema = Business()
+@app.route('/')
+def hello():
+    count = 1
+    return 'Hello World! I have been seen {} times.\n'.format(count)
+
+
+
+def isn():
+        uid = request.args['uid']
+        Business().booked='Yes' #revisit
+        schema = recommend()
         schema.jit = toastedmarshmallow.Jit
-        afmerged = (aftersrec(lat='34.054957345816',lon='-118.249773225864'))
+        merged = (rec(uid))
 
-        return  afmerged  #schema.dump(afmerged, many=True)
+        c_recom.insert_one(merged)
 
-print(afters())
+
+merged = (rec())
+c_recom.insert_one(merged)
+

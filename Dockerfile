@@ -1,5 +1,8 @@
 FROM python:3.7-alpine
 
+RUN apk add --no-cache tzdata
+ENV TZ America/Los_Angeles
+
 WORKDIR . /usr/src/app
 
 COPY requirements.txt ./
